@@ -1,19 +1,15 @@
 import "./styles.css";
 import { Task } from "./tasks";
 import { Project } from "./projects";
+import { TaskManager } from "./taskManager";
 
-const testTask = new Task("Titel", "Etwas zu tun", "tomorrow", "high");
-const testTask2 = new Task("Titel2", "Etwas zu tun", "today", "low");
+const tasks = new TaskManager();
 
-console.log(testTask);
-console.log(testTask2);
+const project1 = new Project("Sample Project");
+tasks.addProject(project1);
 
-const testProject = new Project("Test Project");
-console.log(testProject.getTasks());
+const task1 = new Task("Task 1", "desc", "tomorrow", "high");
+const task2 = new Task("Task 2", "desc", "tomorrow", "high");
 
-testProject.addTask(testTask);
-testProject.addTask(testTask2);
-console.log(testProject.getTasks());
-
-testProject.removeTask(testTask.getTitle());
-console.log(testProject.getTasks());
+tasks.getProject("Inbox")[0].addTask(task1);
+console.log(tasks.getProjects());
