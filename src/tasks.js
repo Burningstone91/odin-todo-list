@@ -1,3 +1,5 @@
+import { isPast, toDate, isToday, isThisWeek } from "date-fns";
+
 class Task {
   constructor(title, description, dueDate, priority) {
     this.title = title;
@@ -36,6 +38,18 @@ class Task {
 
   setPriority(priority) {
     this.priority = priority;
+  }
+
+  isOverdue() {
+    return toDate(this.dueDate) < new Date().setHours(0, 0, 0, 0);
+  }
+
+  isDueToday() {
+    return isToday(toDate(this.dueDate));
+  }
+
+  isDueThisWeek() {
+    return isThisWeek(toDate(this.dueDate));
   }
 }
 

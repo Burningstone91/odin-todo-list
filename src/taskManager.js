@@ -18,9 +18,7 @@ class TaskManager {
   }
 
   getProject(projectTitle) {
-    return this.projects.filter(
-      (project) => project.getTitle() === projectTitle,
-    );
+    return this.projects.find((project) => project.getTitle() === projectTitle);
   }
 
   addProject(newProject) {
