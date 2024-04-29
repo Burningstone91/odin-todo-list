@@ -26,6 +26,34 @@ class Storage {
     return tasks;
   }
 
+  static saveTasksInStorage(tasks) {
+    localStorage.setItem("task-list", JSON.stringify(tasks));
+  }
+
+  static addProject(project) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.addProject(project);
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static removeProject(projectTitle) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.removeProject(projectTitle);
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static addTask(projectTitle, task) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectTitle).addTask(task);
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static removeTask(projectTitle, taskTitle) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectTitle).removeTask(taskTitle);
+    Storage.saveTasksInStorage(tasks);
+  }
+
   // Add static methods for adding/removing projects and tasks, as well as editing tasks
 }
 
