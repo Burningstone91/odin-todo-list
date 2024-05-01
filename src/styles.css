@@ -5,13 +5,13 @@
 }
 
 .project-title {
-  margin: 12px;
+  margin: 14px;
 }
 
 .task-item {
   display: flex;
   align-items: center;
-  margin: 8px;
+  margin: 12px;
   background-color: #eee;
   cursor: pointer;
 }

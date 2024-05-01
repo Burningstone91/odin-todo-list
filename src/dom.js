@@ -4,6 +4,8 @@ import { Task } from "./tasks";
 
 class DOM {
   static renderProject(projectTitle) {
+    DOM.clear();
+
     document.querySelector(".project-title").textContent = projectTitle;
 
     const tasks = Storage.getTasksFromStorage()
@@ -28,6 +30,29 @@ class DOM {
       </button>
     `;
     tasksDiv.appendChild(taskElement);
+    DOM.handleTaskEvents();
+  }
+
+  static handleTaskEvents() {
+    const removeBtns = document.querySelectorAll(".btn.remove");
+
+    removeBtns.forEach((btn) => btn.addEventListener("click", DOM.removeTask));
+  }
+
+  static removeTask(e) {
+    e.stopPropagation();
+
+    const projectTitle = document.querySelector(".project-title").textContent;
+    const taskTitle =
+      e.target.parentNode.previousElementSibling.previousElementSibling
+        .textContent;
+
+    Storage.removeTask(projectTitle, taskTitle);
+    DOM.renderProject(projectTitle);
+  }
+
+  static clear() {
+    document.querySelector(".tasks").innerHTML = "";
   }
 }
 
