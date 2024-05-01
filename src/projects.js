@@ -20,6 +20,10 @@ class Project {
     this.tasks = tasks;
   }
 
+  getTask(taskTitle) {
+    return this.tasks.find((task) => task.getTitle() === taskTitle);
+  }
+
   addTask(newTask) {
     if (this.tasks.find((task) => task.getTitle() === newTask.title)) return;
     this.tasks.push(newTask);

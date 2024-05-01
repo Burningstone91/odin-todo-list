@@ -53,8 +53,6 @@ class Storage {
     tasks.getProject(projectTitle).removeTask(taskTitle);
     Storage.saveTasksInStorage(tasks);
   }
-
-  // Add static methods for adding/removing projects and tasks, as well as editing tasks
 }
 
 export { Storage };
