@@ -29,6 +29,10 @@ class Project {
     this.tasks.push(newTask);
   }
 
+  toggleTask(taskTitle) {
+    this.getTask(taskTitle).toggleStatus();
+  }
+
   removeTask(taskTitle) {
     this.tasks = this.tasks.filter((task) => task.title !== taskTitle);
   }

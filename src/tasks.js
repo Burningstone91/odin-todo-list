@@ -1,11 +1,12 @@
 import { isPast, toDate, isToday, isThisWeek } from "date-fns";
 
 class Task {
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, completed = false) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.completed = completed;
   }
 
   getTitle() {
@@ -50,6 +51,14 @@ class Task {
 
   isDueThisWeek() {
     return isThisWeek(toDate(this.dueDate));
+  }
+
+  isCompleted() {
+    return this.completed;
+  }
+
+  toggleStatus() {
+    this.completed = !this.completed;
   }
 }
 

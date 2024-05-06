@@ -19,6 +19,11 @@ class DOM {
 
     const taskElement = document.createElement("div");
     taskElement.classList.add("task-item");
+
+    if (task.isCompleted()) {
+      taskElement.classList.add("complete");
+    }
+
     taskElement.innerHTML = `
       <button class="btn complete">
         <i class="fa fa-circle-thin"></i>
@@ -35,8 +40,12 @@ class DOM {
 
   static handleTaskEvents() {
     const removeBtns = document.querySelectorAll(".btn.remove");
+    const completeBtns = document.querySelectorAll(".btn.complete");
 
     removeBtns.forEach((btn) => btn.addEventListener("click", DOM.removeTask));
+    completeBtns.forEach((btn) =>
+      btn.addEventListener("click", DOM.toggleTask),
+    );
   }
 
   static removeTask(e) {
@@ -48,6 +57,17 @@ class DOM {
         .textContent;
 
     Storage.removeTask(projectTitle, taskTitle);
+    DOM.renderProject(projectTitle);
+  }
+
+  static toggleTask(e) {
+    console.log(e);
+    e.stopPropagation();
+
+    const projectTitle = document.querySelector(".project-title").textContent;
+    const taskTitle = e.target.parentNode.nextElementSibling.textContent;
+
+    Storage.toggleTask(projectTitle, taskTitle);
     DOM.renderProject(projectTitle);
   }
 

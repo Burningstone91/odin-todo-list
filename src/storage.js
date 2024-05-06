@@ -48,6 +48,12 @@ class Storage {
     Storage.saveTasksInStorage(tasks);
   }
 
+  static toggleTask(projectTitle, taskTitle) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectTitle).toggleTask(taskTitle);
+    Storage.saveTasksInStorage(tasks);
+  }
+
   static removeTask(projectTitle, taskTitle) {
     const tasks = Storage.getTasksFromStorage();
     tasks.getProject(projectTitle).removeTask(taskTitle);
