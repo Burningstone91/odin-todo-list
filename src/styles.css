@@ -34,7 +34,7 @@ body {
   text-decoration-color: green;
 }
 
-.task-item:hover {
+.task-item.edit {
   transform: scale(1.003);
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
 }

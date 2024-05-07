@@ -41,6 +41,7 @@ class DOM {
   }
 
   static handleTaskEvents() {
+    const taskItems = document.querySelectorAll(".task-item");
     const removeBtns = document.querySelectorAll(".btn.remove");
     const completeBtns = document.querySelectorAll(".btn.toggle");
 
@@ -48,6 +49,7 @@ class DOM {
     completeBtns.forEach((btn) =>
       btn.addEventListener("click", DOM.toggleTask),
     );
+    taskItems.forEach((task) => task.addEventListener("click", DOM.editTask));
   }
 
   static removeTask(e) {
@@ -63,7 +65,6 @@ class DOM {
   }
 
   static toggleTask(e) {
-    console.log(e);
     e.stopPropagation();
 
     const projectTitle = document.querySelector(".project-title").textContent;
@@ -71,6 +72,10 @@ class DOM {
 
     Storage.toggleTask(projectTitle, taskTitle);
     DOM.renderProject(projectTitle);
+  }
+
+  static editTask(e) {
+    e.target.classList.add("edit");
   }
 
   static clear() {
