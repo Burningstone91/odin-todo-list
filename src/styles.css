@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-color: hsl(228, 5%, 15%);
+  --text-color: hsl(228, 5%, 80%);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
 .project-title {
   margin: 14px;
 }
@@ -11,13 +21,17 @@
 .task-item {
   display: flex;
   align-items: center;
-  margin: 12px;
-  background-color: #eee;
+  margin: 10px;
   cursor: pointer;
 }
 
-.task-item.complete {
+.task-item > p {
+  font-size: 1.3rem;
+}
+
+.task-item.complete > .task-title{
   text-decoration: line-through;
+  text-decoration-color: green;
 }
 
 .task-item:hover {
@@ -33,12 +47,20 @@
 .btn {
   background: none;
   border: none;
-  color: black;
   padding: 8px 10px;
-  font-size: 16px;
+  color: var(--text-color);
+  font-size: 20px;
   cursor: pointer;
 }
 
 .btn.remove:hover {
   color: red
+}
+
+.task-item.complete > .btn.toggle {
+  color: green;
+}
+
+.task-item.complete > p {
+  color: #eee;
 }

@@ -19,14 +19,16 @@ class DOM {
 
     const taskElement = document.createElement("div");
     taskElement.classList.add("task-item");
+    let icon = "fa fa-circle-thin";
 
     if (task.isCompleted()) {
       taskElement.classList.add("complete");
+      icon = "fa fa-check-circle";
     }
 
     taskElement.innerHTML = `
-      <button class="btn complete">
-        <i class="fa fa-circle-thin"></i>
+      <button class="btn toggle">
+        <i class="${icon}"></i>
       </button>
       <p class="task-title">${task.getTitle()}</p>
       <p class="task-due-date">${task.getDueDate()}</p>
@@ -40,7 +42,7 @@ class DOM {
 
   static handleTaskEvents() {
     const removeBtns = document.querySelectorAll(".btn.remove");
-    const completeBtns = document.querySelectorAll(".btn.complete");
+    const completeBtns = document.querySelectorAll(".btn.toggle");
 
     removeBtns.forEach((btn) => btn.addEventListener("click", DOM.removeTask));
     completeBtns.forEach((btn) =>
