@@ -15,33 +15,51 @@ class DOM {
   }
 
   static renderTask(task) {
-    const tasksDiv = document.querySelector(".tasks");
+    const body = document.querySelector("body");
+    const taskDiv = document.createElement("div");
 
-    const taskElement = document.createElement("div");
-    taskElement.classList.add("task-item");
+    taskDiv.classList.add("task-item");
+    body.appendChild(taskDiv);
+
+    const headerDiv = document.createElement("div");
+    headerDiv.classList.add("task-header");
     let icon = "fa fa-circle-thin";
-
     if (task.isCompleted()) {
-      taskElement.classList.add("complete");
+      headerDiv.classList.add("complete");
       icon = "fa fa-check-circle";
     }
-
-    taskElement.innerHTML = `
+    headerDiv.innerHTML = `
       <button class="btn toggle">
         <i class="${icon}"></i>
       </button>
       <p class="task-title">${task.getTitle()}</p>
-      <p class="task-due-date">${task.getDueDate()}</p>
-      <button class="btn remove">
-        <i class="fa fa-trash"></i>
-      </button>
+      `;
+
+    const detailsDiv = document.createElement("div");
+    detailsDiv.classList.add("task-details");
+    detailsDiv.classList.add("hidden");
+    detailsDiv.innerHTML = `
+      <textarea class="task-desc wrap="soft">${task.getDescription()}</textarea>  
+      <div class="task-footer">
+        <input
+          type="date"
+          id="task-due-date"
+          name="trip-start"
+          value="${task.getDueDate()}" />
+        <button class="btn remove">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
     `;
-    tasksDiv.appendChild(taskElement);
+
+    taskDiv.appendChild(headerDiv);
+    taskDiv.appendChild(detailsDiv);
+
     DOM.handleTaskEvents();
   }
 
   static handleTaskEvents() {
-    const taskItems = document.querySelectorAll(".task-item");
+    const taskItems = document.querySelectorAll(".task-header");
     const removeBtns = document.querySelectorAll(".btn.remove");
     const completeBtns = document.querySelectorAll(".btn.toggle");
 
@@ -57,7 +75,7 @@ class DOM {
 
     const projectTitle = document.querySelector(".project-title").textContent;
     const taskTitle =
-      e.target.parentNode.previousElementSibling.previousElementSibling
+      e.target.parentNode.parentNode.previousElementSibling.lastChild
         .textContent;
 
     Storage.removeTask(projectTitle, taskTitle);
@@ -75,11 +93,41 @@ class DOM {
   }
 
   static editTask(e) {
-    e.target.classList.add("edit");
+    e.stopPropagation();
+
+    const taskItems = document.querySelectorAll(".task-header");
+    taskItems.forEach((task) =>
+      task.removeEventListener("click", DOM.editTask),
+    );
+
+    const taskItem = e.target.parentNode.parentNode;
+    taskItem.classList.add("edit");
+    document.querySelector("body").classList.add("blur");
+
+    document.addEventListener("click", DOM.stopEditTask);
+  }
+
+  static stopEditTask(e) {
+    const taskItem = document.querySelector(".edit");
+
+    if (!taskItem.contains(e.target)) {
+      taskItem.classList.remove("edit");
+      document.querySelector("body").classList.remove("blur");
+      document.removeEventListener("click", DOM.stopEditTask);
+      DOM.saveTask(taskItem);
+    }
+  }
+
+  static saveTask(taskItem) {
+    console.log(taskItem);
+    const projectTitle = document.querySelector(".project-title").textContent;
+    DOM.renderProject(projectTitle);
   }
 
   static clear() {
-    document.querySelector(".tasks").innerHTML = "";
+    document.querySelector("body").innerHTML = `
+      <h1 class="project-title"></h1>
+    `;
   }
 }
 
