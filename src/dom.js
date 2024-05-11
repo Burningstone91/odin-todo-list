@@ -74,8 +74,9 @@ class DOM {
     e.stopPropagation();
 
     const projectID = document.querySelector(".project-title").id.substring(2);
-    const taskID = e.target.parentNode.parentNode.parentNode.id
-    Storage.removeTask(projectID, taskID);
+    const taskID = e.target.parentNode.parentNode.parentNode.parentNode.id.substring(2);
+
+    Storage.removeTask(+projectID, +taskID);
     DOM.renderProject(projectID);
   }
 
@@ -83,9 +84,8 @@ class DOM {
     e.stopPropagation();
 
     const projectID = document.querySelector(".project-title").id.substring(2);
-    const taskID = e.target.parentNode.parentNode.id;
-
-    Storage.toggleTask(projectID, taskID);
+    const taskID = e.target.parentNode.parentNode.parentNode.id.substring(2);
+    Storage.toggleTask(+projectID, +taskID);
     DOM.renderProject(projectID);
   }
 
@@ -122,6 +122,7 @@ class DOM {
   }
 
   static clear() {
+    document.querySelector("body").classList.remove("blur");
     document.querySelector("body").innerHTML = `
       <h1 class="project-title"></h1>
     `;

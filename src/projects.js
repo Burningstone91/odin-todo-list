@@ -42,7 +42,7 @@ class Project {
   }
 
   removeTask(taskID) {
-    this.tasks = this.tasks.filter((task) => task.getID() !== taskID);
+    this.tasks = this.tasks.filter((task) => task.getTaskID() !== taskID);
   }
 }
 
