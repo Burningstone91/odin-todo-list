@@ -9,6 +9,22 @@ class Task {
     this.completed = completed;
   }
 
+  getTaskID() {
+    return this.taskID;
+  }
+
+  setTaskID(taskID) {
+    this.taskID = taskID;
+  }
+
+  getProjectID() {
+    return this.projectID;
+  }
+
+  setProjectID(projectID) {
+    this.projectID = projectID;
+  }
+
   getTitle() {
     return this.title;
   }

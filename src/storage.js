@@ -30,27 +30,51 @@ class Storage {
     localStorage.setItem("task-list", JSON.stringify(tasks));
   }
 
+  static generateProjectID() {
+    const tasks = Storage.getTasksFromStorage();
+    let maxProjectID = 0;
+    const values = Object.values(tasks.projects)
+    values.map((el) => {
+      const projectID = el.projectID;
+      maxProjectID = Math.max(maxProjectID, projectID)
+    })
+    return maxProjectID + 1;
+  }
+
   static addProject(project) {
     const tasks = Storage.getTasksFromStorage();
+    project.setProjectID(Storage.generateProjectID());
     tasks.addProject(project);
     Storage.saveTasksInStorage(tasks);
   }
 
-  static removeProject(projectTitle) {
+  static removeProject(projectID) {
     const tasks = Storage.getTasksFromStorage();
-    tasks.removeProject(projectTitle);
+    tasks.removeProject(projectID);
     Storage.saveTasksInStorage(tasks);
   }
 
-  static addTask(projectTitle, task) {
+  static generateTaskID() {
     const tasks = Storage.getTasksFromStorage();
-    tasks.getProject(projectTitle).addTask(task);
+    let maxTaskID = 0;
+    const allTaskIDs = Object.values(tasks.projects).reduce((acc, project) => {
+      const taskIDs = project.tasks?.map(task => task.taskID);
+      return acc.concat(taskIDs);
+    }, []);
+    return Math.max(allTaskIDs) + 1; 
+  }
+
+  static addTask(projectID, task) {
+    const tasks = Storage.getTasksFromStorage();
+    task.setTaskID(Storage.generateTaskID());
+    task.setProjectID(projectID);
+    tasks.getProject(projectID).addTask(task);
     Storage.saveTasksInStorage(tasks);
   }
 
-  static toggleTask(projectTitle, taskTitle) {
+  static toggleTask(projectID, taskID) {
     const tasks = Storage.getTasksFromStorage();
-    tasks.getProject(projectTitle).toggleTask(taskTitle);
+    tasks.getProject(projectID).toggleTask(taskID);
     Storage.saveTasksInStorage(tasks);
   }
 

@@ -3,10 +3,6 @@ import { Project } from "./projects";
 class TaskManager {
   constructor() {
     this.projects = [];
-    this.projects.push(new Project("Inbox"));
-    this.projects.push(new Project("Overdue"));
-    this.projects.push(new Project("Today"));
-    this.projects.push(new Project("This Week"));
   }
 
   getProjects() {
@@ -17,8 +13,8 @@ class TaskManager {
     this.projects = projects;
   }
 
-  getProject(projectTitle) {
-    return this.projects.find((project) => project.getTitle() === projectTitle);
+  getProject(projectID) {
+    return this.projects.find((project) => project.getProjectID() === projectID);
   }
 
   addProject(newProject) {
@@ -29,9 +25,9 @@ class TaskManager {
     this.projects.push(newProject);
   }
 
-  removeProject(projectTitle) {
+  removeProject(projectID) {
     this.projects = this.projects.filter(
-      (project) => project.title !== projectTitle,
+      (project) => project.projectID !== projectID,
     );
   }
 }

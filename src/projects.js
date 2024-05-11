@@ -4,6 +4,14 @@ class Project {
     this.tasks = [];
   }
 
+  getProjectID() {
+    return this.projectID;
+  }
+
+  setProjectID(projectID) {
+    this.projectID = projectID;
+  }
+  
   getTitle() {
     return this.title;
   }
@@ -20,8 +28,8 @@ class Project {
     this.tasks = tasks;
   }
 
-  getTask(taskTitle) {
-    return this.tasks.find((task) => task.getTitle() === taskTitle);
+  getTask(taskID) {
+    return this.tasks.find((task) => task.getTaskID() === taskID);
   }
 
   addTask(newTask) {
@@ -29,12 +37,12 @@ class Project {
     this.tasks.push(newTask);
   }
 
-  toggleTask(taskTitle) {
-    this.getTask(taskTitle).toggleStatus();
+  toggleTask(taskID) {
+    this.getTask(taskID).toggleStatus();
   }
 
-  removeTask(taskTitle) {
-    this.tasks = this.tasks.filter((task) => task.title !== taskTitle);
+  removeTask(taskID) {
+    this.tasks = this.tasks.filter((task) => task.getID() !== taskID);
   }
 }
 

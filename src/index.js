@@ -11,9 +11,12 @@ const task1 = new Task("Some task", "some desc", "2024-12-31", "low");
 const task2 = new Task("Pack task", "Take", "2023-12-11", "low");
 
 Storage.addProject(proj);
-Storage.addTask("Test Project", task1);
-Storage.addTask("Test Project", task2);
+Storage.addTask(1, task1);
+Storage.addTask(1, task2);
+Storage.addProject(proj2)
+Storage.removeProject(2)
+
 
 console.log(Storage.getTasksFromStorage());
 
-DOM.renderProject("Test Project");
+DOM.renderProject(1);

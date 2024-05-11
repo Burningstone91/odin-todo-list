@@ -3,22 +3,23 @@ import { Project } from "./projects";
 import { Task } from "./tasks";
 
 class DOM {
-  static renderProject(projectTitle) {
+  static renderProject(projectID) {
     DOM.clear();
+    const project = Storage.getTasksFromStorage().getProject(+projectID)
 
-    document.querySelector(".project-title").textContent = projectTitle;
+    document.querySelector(".project-title").textContent = project.getTitle();
+    document.querySelector(".project-title").id = "P-" + projectID;
 
-    const tasks = Storage.getTasksFromStorage()
-      .getProject(projectTitle)
-      .getTasks();
+    const tasks = project.getTasks();
     tasks.forEach((task) => DOM.renderTask(task));
   }
 
   static renderTask(task) {
     const body = document.querySelector("body");
     const taskDiv = document.createElement("div");
-
+    const taskID = "T-" + task.getTaskID();
     taskDiv.classList.add("task-item");
+    taskDiv.id = taskID
     body.appendChild(taskDiv);
 
     const headerDiv = document.createElement("div");
@@ -37,7 +38,6 @@ class DOM {
 
     const detailsDiv = document.createElement("div");
     detailsDiv.classList.add("task-details");
-    detailsDiv.classList.add("hidden");
     detailsDiv.innerHTML = `
       <textarea class="task-desc wrap="soft">${task.getDescription()}</textarea>  
       <div class="task-footer">
@@ -73,23 +73,20 @@ class DOM {
   static removeTask(e) {
     e.stopPropagation();
 
-    const projectTitle = document.querySelector(".project-title").textContent;
-    const taskTitle =
-      e.target.parentNode.parentNode.previousElementSibling.lastChild
-        .textContent;
-
-    Storage.removeTask(projectTitle, taskTitle);
-    DOM.renderProject(projectTitle);
+    const projectID = document.querySelector(".project-title").id.substring(2);
+    const taskID = e.target.parentNode.parentNode.parentNode.id
+    Storage.removeTask(projectID, taskID);
+    DOM.renderProject(projectID);
   }
 
   static toggleTask(e) {
     e.stopPropagation();
 
-    const projectTitle = document.querySelector(".project-title").textContent;
-    const taskTitle = e.target.parentNode.nextElementSibling.textContent;
+    const projectID = document.querySelector(".project-title").id.substring(2);
+    const taskID = e.target.parentNode.parentNode.id;
 
-    Storage.toggleTask(projectTitle, taskTitle);
-    DOM.renderProject(projectTitle);
+    Storage.toggleTask(projectID, taskID);
+    DOM.renderProject(projectID);
   }
 
   static editTask(e) {
@@ -120,8 +117,8 @@ class DOM {
 
   static saveTask(taskItem) {
     console.log(taskItem);
-    const projectTitle = document.querySelector(".project-title").textContent;
-    DOM.renderProject(projectTitle);
+    const projectID = document.querySelector(".project-title").id.substring(2);
+    DOM.renderProject(projectID);
   }
 
   static clear() {
