@@ -39,7 +39,7 @@ class DOM {
     const detailsDiv = document.createElement("div");
     detailsDiv.classList.add("task-details");
     detailsDiv.innerHTML = `
-      <textarea class="task-desc wrap="soft">${task.getDescription()}</textarea>  
+      <textarea class="task-desc" wrap="soft">${task.getDescription()}</textarea>  
       <div class="task-footer">
         <input
           type="date"
@@ -106,19 +106,26 @@ class DOM {
 
   static stopEditTask(e) {
     const taskItem = document.querySelector(".edit");
+    const projectID = document.querySelector(".project-title").id.substring(2);
 
     if (!taskItem.contains(e.target)) {
+      document.removeEventListener("click", DOM.stopEditTask);
+      
+      const taskID = taskItem.id.substring(2);
+      const taskTitle = document.querySelector(".edit .task-title").textContent;
+      const description = document.querySelector(".edit .task-desc").value;
+      const dueDate = document.querySelector(".edit #task-due-date").value;
+
+      console.log(description)
+      Storage.setTaskTitle(+projectID, +taskID, taskTitle);
+      Storage.setTaskDescription(+projectID, +taskID, description);
+      Storage.setTaskDueDate(+projectID, +taskID, dueDate);
+
       taskItem.classList.remove("edit");
       document.querySelector("body").classList.remove("blur");
-      document.removeEventListener("click", DOM.stopEditTask);
-      DOM.saveTask(taskItem);
+      
+      DOM.renderProject(projectID)
     }
-  }
-
-  static saveTask(taskItem) {
-    console.log(taskItem);
-    const projectID = document.querySelector(".project-title").id.substring(2);
-    DOM.renderProject(projectID);
   }
 
   static clear() {

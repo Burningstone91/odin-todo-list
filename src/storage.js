@@ -56,7 +56,6 @@ class Storage {
 
   static generateTaskID() {
     const tasks = Storage.getTasksFromStorage();
-    let maxTaskID = 0;
     const allTaskIDs = Object.values(tasks.projects).reduce((acc, project) => {
       const taskIDs = project.tasks?.map(task => task.taskID);
       return acc.concat(taskIDs);
@@ -75,6 +74,24 @@ class Storage {
   static toggleTask(projectID, taskID) {
     const tasks = Storage.getTasksFromStorage();
     tasks.getProject(projectID).getTask(taskID).toggleStatus();
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static setTaskTitle(projectID, taskID, taskTitle) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectID).getTask(taskID).setTitle(taskTitle);
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static setTaskDescription(projectID, taskID, description) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectID).getTask(taskID).setDescription(description);
+    Storage.saveTasksInStorage(tasks);
+  }
+
+  static setTaskDueDate(projectID, taskID, dueDate) {
+    const tasks = Storage.getTasksFromStorage();
+    tasks.getProject(projectID).getTask(taskID).setDueDate(dueDate);
     Storage.saveTasksInStorage(tasks);
   }
 
