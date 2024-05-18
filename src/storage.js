@@ -74,7 +74,7 @@ class Storage {
 
   static toggleTask(projectID, taskID) {
     const tasks = Storage.getTasksFromStorage();
-    tasks.getProject(projectID).toggleTask(taskID);
+    tasks.getProject(projectID).getTask(taskID).toggleStatus();
     Storage.saveTasksInStorage(tasks);
   }
 

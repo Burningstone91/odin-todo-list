@@ -37,12 +37,12 @@ class Project {
     this.tasks.push(newTask);
   }
 
-  toggleTask(taskID) {
-    this.getTask(taskID).toggleStatus();
-  }
-
   removeTask(taskID) {
     this.tasks = this.tasks.filter((task) => task.getTaskID() !== taskID);
+  }
+
+  editTask(task) {
+    
   }
 }
 
