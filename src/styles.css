@@ -75,14 +75,13 @@ body {
   transition: 200ms all ease-in-out;
   position: fixed;
   width: 100%;
-  background:rgba(0,0,0,1);
+  background: rgba(0,0,0,1);
   height: 100%;
   left: 0px;
-  transition: 300ms all ease-in-out;
 }
 
 .sidebar li{
-  font-size: 24px;
+  font-size: 16px;
   color: var(--text-color);
   display: flex;
   gap: 16px;
@@ -95,6 +94,12 @@ body {
 
 .sidebar.closed {
   left: -100%;
+}
+
+.sidebar > h3 {
+  margin: 0px 14px;
+  padding-top: 14px;
+  border-top: solid 1px grey;
 }
 
 /* Content */

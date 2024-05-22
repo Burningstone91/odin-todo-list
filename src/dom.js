@@ -4,6 +4,22 @@ import { Task } from "./tasks";
 
 class DOM {
   static renderHomePage() {
+    const projects = Storage.getTasksFromStorage().getProjects();
+
+    const projectList = document.querySelector(".project-list");
+
+    projects.forEach((project) => {
+      const projectItem = document.createElement("li");
+      projectItem.classList.add(`P-${project.getProjectID()}`);
+      projectItem.innerHTML = `
+      <i class="fa fa-briefcase"></i>
+      <p>${project.getTitle()}</p>
+      `
+      projectList.appendChild(projectItem);
+    })
+
+    // Add code for button for adding a project
+    
     document.querySelector(".open-nav").addEventListener("click", DOM.toggleSidebar)
 
     //Change to Inbox project once implemented
