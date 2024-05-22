@@ -10,12 +10,20 @@ class DOM {
 
     projects.forEach((project) => {
       const projectItem = document.createElement("li");
-      projectItem.classList.add(`P-${project.getProjectID()}`);
       projectItem.innerHTML = `
       <i class="fa fa-briefcase"></i>
-      <p>${project.getTitle()}</p>
+      <p class="P-${project.getProjectID()}">${project.getTitle()}</p>
       `
       projectList.appendChild(projectItem);
+      })
+
+    // Render project when clicking on title in the sidebar
+    const projectTitles = document.querySelectorAll("li > p");
+    [...projectTitles].forEach((projectTitle) => {
+      projectTitle.addEventListener("click", (e) => {
+        DOM.renderProject(+e.target.classList[0].substring(2))
+        DOM.toggleSidebar();
+      })
     })
 
     // Add code for button for adding a project
