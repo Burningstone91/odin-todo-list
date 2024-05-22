@@ -14,6 +14,90 @@ body {
   color: var(--text-color);
 }
 
+/* Header */ 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.open-nav {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: 300ms all ease-in-out;
+  margin-left: 14px;
+}
+
+.open-nav .bar {
+  border-radius: 1000px;
+  background: #eee;
+  width: 30px;
+  height: 3px;
+  margin: 0px 2px;
+  position: relative;
+  top: 17px;
+  transition: 300ms all ease-in-out;
+}
+
+.open-nav .bar:first-child {
+  top: 10px;
+}
+
+.open-nav .bar:last-child {
+  top: 25px;
+}
+
+.open-nav.open .bar:first-child {
+  transform: rotate(45deg);
+  top: 18px;
+}
+
+.open-nav.open .bar:last-child {
+  transform: rotate(-45deg);
+  top: 12px;
+}
+
+.open-nav.open .bar.mdl {
+  opacity: 0;
+}
+
+.logo {
+  margin-right: 14px;
+  font-size: 30px;
+}
+
+/* Sidebar */
+.sidebar {
+  transition: 200ms all ease-in-out;
+  position: fixed;
+  width: 100%;
+  background:rgba(0,0,0,1);
+  height: 100%;
+  left: 0px;
+  transition: 300ms all ease-in-out;
+}
+
+.sidebar li{
+  font-size: 24px;
+  color: var(--text-color);
+  display: flex;
+  gap: 16px;
+  padding: 8px 5px;
+  margin: 8px;
+  width: 100%;
+  text-decoration: none;
+  transition: 200ms all ease-in-out;
+}
+
+.sidebar.closed {
+  left: -100%;
+}
+
+/* Content */
 .project-title {
   margin: 14px;
 }
@@ -31,6 +115,11 @@ body {
 
 .task-title {
   font-size: 1.3rem;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  caret-color: blue;
   margin-right: auto;
   margin-bottom: 2px;
 }
@@ -44,7 +133,7 @@ body {
   cursor: pointer;
 }
 
-.btn.remove:hover {
+.btn.remove {
   color: red
 }
 
@@ -64,6 +153,7 @@ body {
 .task-desc {
   background-color: var(--bg-color);
   border: none;
+  outline: none;
   color: var(--text-color);
   width: 100%;
   min-height: 5rem;
@@ -77,6 +167,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#task-due-date {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-color);
 }
 
 .task-item.edit {
@@ -93,4 +190,4 @@ body.blur > *:not(.edit) {
   filter: blur(2px);
 }
 
-
+/* Footer */

@@ -3,6 +3,24 @@ import { Project } from "./projects";
 import { Task } from "./tasks";
 
 class DOM {
+  static renderHomePage() {
+    document.querySelector(".open-nav").addEventListener("click", DOM.toggleSidebar)
+
+    //Change to Inbox project once implemented
+    DOM.renderProject(1)
+  }
+  
+  static toggleSidebar() {
+    document.querySelector(".sidebar").classList.toggle("closed");
+      
+    const btnOpenNav = document.querySelector(".open-nav");
+    if (!btnOpenNav.classList.contains("open")) {
+      btnOpenNav.classList.add("open");
+    } else {
+      document.querySelector(".open-nav").classList.toggle("open");
+    }
+  }
+
   static renderProject(projectID) {
     DOM.clear();
     const project = Storage.getTasksFromStorage().getProject(+projectID)
@@ -12,15 +30,16 @@ class DOM {
 
     const tasks = project.getTasks();
     tasks.forEach((task) => DOM.renderTask(task));
+    // Add code for buton for adding a task to the project
   }
 
   static renderTask(task) {
-    const body = document.querySelector("body");
+    const main = document.querySelector("main");
     const taskDiv = document.createElement("div");
     const taskID = "T-" + task.getTaskID();
     taskDiv.classList.add("task-item");
     taskDiv.id = taskID
-    body.appendChild(taskDiv);
+    main.appendChild(taskDiv);
 
     const headerDiv = document.createElement("div");
     headerDiv.classList.add("task-header");
@@ -33,7 +52,7 @@ class DOM {
       <button class="btn toggle">
         <i class="${icon}"></i>
       </button>
-      <p class="task-title">${task.getTitle()}</p>
+      <input type="text" class="task-title" value="${task.getTitle()}" />
       `;
 
     const detailsDiv = document.createElement("div");
@@ -112,17 +131,15 @@ class DOM {
       document.removeEventListener("click", DOM.stopEditTask);
       
       const taskID = taskItem.id.substring(2);
-      const taskTitle = document.querySelector(".edit .task-title").textContent;
+      const taskTitle = document.querySelector(".edit .task-title").value;
       const description = document.querySelector(".edit .task-desc").value;
       const dueDate = document.querySelector(".edit #task-due-date").value;
 
-      console.log(description)
       Storage.setTaskTitle(+projectID, +taskID, taskTitle);
       Storage.setTaskDescription(+projectID, +taskID, description);
       Storage.setTaskDueDate(+projectID, +taskID, dueDate);
 
       taskItem.classList.remove("edit");
-      document.querySelector("body").classList.remove("blur");
       
       DOM.renderProject(projectID)
     }
@@ -130,8 +147,8 @@ class DOM {
 
   static clear() {
     document.querySelector("body").classList.remove("blur");
-    document.querySelector("body").innerHTML = `
-      <h1 class="project-title"></h1>
+    document.querySelector("main").innerHTML = `
+      <h2 class="project-title"></h2>
     `;
   }
 }
