@@ -103,16 +103,72 @@ body {
 }
 
 /* Content */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .project-title {
   margin: 14px;
 }
 
-.task-item {
+.btn.add-task {
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+  padding: 0px;
+  line-height: 0px;
+  border-radius: 50%;
+  background: blue;
+  margin-right: 14px;
+}
+
+.add-task-dialog {
+  width: 100%;
+  max-width: 100vw;
+  border: none;
+  padding: 0px !important;
+  background: var(--bg-color);
+  top: 150px;  
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+  padding: 14px 12px 12px 12px;
+  border-radius: 12px;
+}
+
+.add-task-dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
+
+.new-task-save {
+  display: flex;
+  justify-content: flex-end;
+  background: darkgray;
+  padding: 8px;
+}
+
+.btn.save {
+  background: blue;
+  border-radius: 8px;
+  width: 80px;
+  font-size: 17px;
+}
+
+.new-task-close {
+  margin-bottom: -10px;
+  margin-right: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task-item,
+.new-task-item {
   margin-bottom: 10px;
   padding-left: 8px;
 }
 
-.task-header {
+.task-header,
+.new-task-header {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -151,23 +207,26 @@ body {
   text-decoration-color: green;
 }
 
-.task-details {
+.task-details,
+.new-task-details {
   margin-left: 38px;
 }
 
-.task-desc {
+.task-desc,
+.new-task-desc {
   background-color: var(--bg-color);
   border: none;
   outline: none;
   color: var(--text-color);
   width: 100%;
-  min-height: 5rem;
+  min-height: 8rem;
   font-size: 1rem;
   line-height: 1.5;
   margin-top: 8px;
 }
 
-.task-footer {
+.task-footer,
+.new-task-footer {
   margin-top: 14px;
   display: flex;
   align-items: center;

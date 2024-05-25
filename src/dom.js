@@ -17,7 +17,7 @@ class DOM {
       projectList.appendChild(projectItem);
       })
 
-    // Render project when clicking on title in the sidebar
+    // Render project when clicking on its title in the sidebar
     const projectTitles = document.querySelectorAll("li > p");
     [...projectTitles].forEach((projectTitle) => {
       projectTitle.addEventListener("click", (e) => {
@@ -54,7 +54,15 @@ class DOM {
 
     const tasks = project.getTasks();
     tasks.forEach((task) => DOM.renderTask(task));
-    // Add code for buton for adding a task to the project
+
+    const addTaskDialog = document.querySelector(".add-task-dialog");
+    document.querySelector(".btn.add-task").addEventListener("click", () => {
+      addTaskDialog.showModal();  
+    })
+
+    document.querySelector(".btn.close").addEventListener("click", () => {
+      addTaskDialog.close();
+    })
   }
 
   static renderTask(task) {
@@ -172,8 +180,11 @@ class DOM {
   static clear() {
     document.querySelector("body").classList.remove("blur");
     document.querySelector("main").innerHTML = `
-      <h2 class="project-title"></h2>
-    `;
+      <div class="project-header">
+        <h2 class="project-title"></h2>
+        <button class="btn add-task">+</button>
+      </div>
+      `;
   }
 }
 
