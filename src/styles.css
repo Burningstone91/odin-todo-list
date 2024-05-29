@@ -174,7 +174,8 @@ body {
   cursor: pointer;
 }
 
-.task-title {
+.task-title,
+.new-task-title {
   font-size: 1.3rem;
   background: none;
   border: none;
@@ -233,7 +234,8 @@ body {
   justify-content: space-between;
 }
 
-#task-due-date {
+#task-due-date,
+#new-task-due-date {
   background: none;
   border: none;
   outline: none;

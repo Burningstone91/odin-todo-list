@@ -60,7 +60,11 @@ class DOM {
       addTaskDialog.showModal();  
     })
 
-    document.querySelector(".btn.close").addEventListener("click", () => {
+    document.querySelector(".btn.save").addEventListener("click", DOM.addTask);
+
+    document.querySelector(".btn.close").addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector(".new-task-form").reset();
       addTaskDialog.close();
     })
   }
@@ -175,6 +179,21 @@ class DOM {
       
       DOM.renderProject(projectID)
     }
+  }
+
+  static addTask(e) {
+    e.preventDefault();
+    const title = document.querySelector(".new-task-title").value;
+    const desc = document.querySelector(".new-task-desc").value;
+    const dueDate = document.querySelector("#new-task-due-date").value;
+    const projectID = document.querySelector(".project-title").id.substring(2);
+    
+    const task = new Task(title, desc, dueDate);
+    Storage.addTask(+projectID, task);
+
+    document.querySelector(".new-task-form").reset();
+    document.querySelector(".add-task-dialog").close();
+    DOM.renderProject(+projectID);
   }
 
   static clear() {

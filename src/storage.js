@@ -60,7 +60,7 @@ class Storage {
       const taskIDs = project.tasks?.map(task => task.taskID);
       return acc.concat(taskIDs);
     }, []);
-    return Math.max(allTaskIDs) + 1; 
+    return Math.max(...allTaskIDs) + 1; 
   }
 
   static addTask(projectID, task) {

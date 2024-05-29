@@ -1,7 +1,7 @@
 import { isPast, toDate, isToday, isThisWeek } from "date-fns";
 
 class Task {
-  constructor(title, description, dueDate, priority, completed = false) {
+  constructor(title, description, dueDate, priority = "low", completed = false) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
