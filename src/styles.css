@@ -96,10 +96,23 @@ body {
   left: -100%;
 }
 
-.sidebar > h3 {
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 1px grey;
   margin: 0px 14px;
   padding-top: 14px;
-  border-top: solid 1px grey;
+}
+
+.btn.add-project {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  padding: 0px;
+  line-height: 0px;
+  border-radius: 50%;
+  background: blue;
 }
 
 /* Content */
@@ -124,37 +137,57 @@ body {
   margin-right: 14px;
 }
 
-.add-task-dialog {
+.add-task-dialog,
+.add-project-dialog {
   width: 100%;
   max-width: 100vw;
   border: none;
   padding: 0px !important;
   background: var(--bg-color);
-  top: 150px;  
+  top: 20px;  
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
   padding: 14px 12px 12px 12px;
   border-radius: 12px;
 }
 
-.add-task-dialog::backdrop {
+.add-project-dialog {
+  height: 130px;
+}
+
+.new-project-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.new-project-title {
+  margin-left: 14px;
+}
+
+.add-task-dialog::backdrop,
+.add-project-dialog::backdrop {
   backdrop-filter: blur(2px);
 }
 
-.new-task-save {
+div.new-task-save,
+div.new-project-save {
   display: flex;
   justify-content: flex-end;
   background: darkgray;
   padding: 8px;
 }
 
-.btn.save {
+.btn.new-task-save,
+.btn.new-project-save {
   background: blue;
   border-radius: 8px;
   width: 80px;
   font-size: 17px;
 }
 
-.new-task-close {
+.new-task-close,
+.new-project-close {
   margin-bottom: -10px;
   margin-right: 8px;
   display: flex;
@@ -175,7 +208,8 @@ body {
 }
 
 .task-title,
-.new-task-title {
+.new-task-title,
+.new-project-title {
   font-size: 1.3rem;
   background: none;
   border: none;

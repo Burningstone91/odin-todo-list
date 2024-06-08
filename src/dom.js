@@ -7,7 +7,8 @@ class DOM {
     const projects = Storage.getTasksFromStorage().getProjects();
 
     const projectList = document.querySelector(".project-list");
-
+    projectList.innerHTML = "";
+    
     projects.forEach((project) => {
       const projectItem = document.createElement("li");
       projectItem.innerHTML = `
@@ -21,17 +22,28 @@ class DOM {
     const projectTitles = document.querySelectorAll("li > p");
     [...projectTitles].forEach((projectTitle) => {
       projectTitle.addEventListener("click", (e) => {
-        DOM.renderProject(+e.target.classList[0].substring(2))
+        DOM.renderProject(+e.target.classList[0].substring(2));
         DOM.toggleSidebar();
       })
     })
 
-    // Add code for button for adding a project
+    const addProjectDialog = document.querySelector(".add-project-dialog");
+    document.querySelector(".btn.add-project").addEventListener("click", () => {
+      addProjectDialog.showModal();  
+    })
+
+    document.querySelector(".btn.new-project-save").addEventListener("click", DOM.addProject);
+
+    document.querySelector(".btn.new-project-close").addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector(".new-project-form").reset();
+      addProjectDialog.close();
+    })
     
-    document.querySelector(".open-nav").addEventListener("click", DOM.toggleSidebar)
+    document.querySelector(".open-nav").addEventListener("click", DOM.toggleSidebar);
 
     //Change to Inbox project once implemented
-    DOM.renderProject(1)
+    DOM.renderProject(1);
   }
   
   static toggleSidebar() {
@@ -60,9 +72,9 @@ class DOM {
       addTaskDialog.showModal();  
     })
 
-    document.querySelector(".btn.save").addEventListener("click", DOM.addTask);
+    document.querySelector(".btn.new-task-save").addEventListener("click", DOM.addTask);
 
-    document.querySelector(".btn.close").addEventListener("click", (e) => {
+    document.querySelector(".btn.new-task-close").addEventListener("click", (e) => {
       e.preventDefault();
       document.querySelector(".new-task-form").reset();
       addTaskDialog.close();
@@ -194,6 +206,20 @@ class DOM {
     document.querySelector(".new-task-form").reset();
     document.querySelector(".add-task-dialog").close();
     DOM.renderProject(+projectID);
+  }
+
+  static addProject(e) {
+    e.preventDefault();
+    const title = document.querySelector(".new-project-title").value;
+    
+    const project = new Project(title);
+    Storage.addProject(project);
+
+    //const projectID = 
+
+    document.querySelector(".new-project-form").reset();
+    document.querySelector(".add-project-dialog").close();
+    DOM.renderHomePage();
   }
 
   static clear() {

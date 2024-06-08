@@ -30,7 +30,10 @@
         <p>Today</p>
       </li>
     </ul>
-    <h3>Projects</h3>
+    <div class="projects-header">
+      <h3>Projects</h3>
+      <button class="btn add-project">+</button>
+    </div>
     <ul class="project-list">
 
     </ul>
@@ -40,14 +43,14 @@
   <dialog class="add-task-dialog">
     <form class="new-task-form">
       <div class="new-task-close">
-        <button class="btn close" autofocus>X</button>
+        <button class="btn new-task-close">X</button>
       </div>
       <div class="new-task-item">
         <div class="new-task-header">
           <button class="btn toggle">
             <i class="fa fa-circle-thin"></i>
           </button>
-          <input type="text" class="new-task-title" placeholder="New Task">
+          <input type="text" class="new-task-title" placeholder="New Task" autofocus>
         </div>
         <div class="new-task-details">
           <textarea class="new-task-desc" wrap="soft" placeholder="Task Description"></textarea>  
@@ -57,7 +60,21 @@
         </div>
       </div>
       <div class="new-task-save">
-        <button class="btn save">Save</button>
+        <button class="btn new-task-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="add-project-dialog">
+    <form class="new-project-form">
+      <div class="new-project-close">
+        <button class="btn new-project-close">X</button>
+      </div>
+      <div class="new-project-item">
+        <input type="text" class="new-project-title" placeholder="Project Name" autofocus>
+      </div>
+      <div class="new-project-save">
+        <button class="btn new-project-save">Save</button>
       </div>
     </form>
   </dialog>
